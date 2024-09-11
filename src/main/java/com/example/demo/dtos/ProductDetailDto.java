@@ -2,7 +2,7 @@ package com.example.demo.dtos;
 
 import java.math.BigDecimal;
 
-import com.example.demo.domain.ProductDetail;
+import com.example.demo.response.ProductDetail;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;

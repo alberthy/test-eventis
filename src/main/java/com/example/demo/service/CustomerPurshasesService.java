@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.client.customer.CustomerClient;
 import com.example.demo.client.product.ProductDetailClient;
-import com.example.demo.domain.CustomerProductDetail;
-import com.example.demo.domain.ProductDetail;
-import com.example.demo.domain.RecommendedProduct;
 import com.example.demo.dtos.CustomerPurshasesDto;
 import com.example.demo.dtos.ProductDetailDto;
 import com.example.demo.exceptions.ApplicationException;
+import com.example.demo.exceptions.BadRequestException;
+import com.example.demo.response.CustomerProductDetail;
+import com.example.demo.response.ProductDetail;
+import com.example.demo.response.RecommendedProduct;
 
 /*
  *  @author: Albert Oliveira 10.09.2024
@@ -38,7 +39,7 @@ public class CustomerPurshasesService {
 	/*
 	 *  Find all
 	 */
-	public List<CustomerProductDetail> findAll() {
+	public List<CustomerProductDetail> findAll() throws ApplicationException {
 
 		List<ProductDetailDto> productsDetail = productDetailClient.findAll();
 		List<CustomerPurshasesDto> customersPurshases = customerClient.findAll();
@@ -124,7 +125,7 @@ public class CustomerPurshasesService {
 	/*
 	 *  Top 3 Customers
 	 */
-	public List<CustomerProductDetail> getLoyalCustomers() {
+	public List<CustomerProductDetail> getLoyalCustomers() throws ApplicationException {
 
 		List<CustomerProductDetail> customerProductList = this.findAll();
 		List<CustomerProductDetail> customerProductFilter = new ArrayList<CustomerProductDetail>();
@@ -161,7 +162,7 @@ public class CustomerPurshasesService {
 	/*
 	 *  Recommended product
 	 */
-	public RecommendedProduct getRecommendedProduct() {
+	public RecommendedProduct getRecommendedProduct() throws ApplicationException {
 		
 		List<CustomerProductDetail> customerProductList = this.findAll();
 		List<ProductDetail> productDetails = new ArrayList<ProductDetail>();
@@ -203,13 +204,13 @@ public class CustomerPurshasesService {
 	/*
 	 * Validations
 	 */
-	private void validadeRequiredParam(Integer year) throws ApplicationException {
+	private void validadeRequiredParam(Integer year) throws BadRequestException {
 		if (Objects.isNull(year)) {
-			throw new ApplicationException("O campo ano é obrigatório!");
+			throw new BadRequestException("O parâmetro ANO é obrigatório.");
 		}
 		
 		if (year.compareTo(2017) == -1 || (year.compareTo(2022) == 1)){
-			throw new ApplicationException("O campo ano deve estar entre 2017 - 2022");
+			throw new BadRequestException("O parâmetro ANO deve está no internvalo entre 2017 à 2022.");
 		}
 		
 	}
