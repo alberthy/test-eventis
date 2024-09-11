@@ -9,7 +9,7 @@ import com.example.demo.dtos.ProductDetailDto;
 
 import feign.Headers;
 
-@FeignClient(name = "product-detail-client", url = "https://rgr3viiqdl8sikgv.public.blob.vercel-storage.com")
+@FeignClient(name = "product-detail-client", url = "${base.url}")
 public interface ProductDetailClient {
 	
 	 @GetMapping("/produtos-mnboX5IPl6VgG390FECTKqHsD9SkLS.json")
