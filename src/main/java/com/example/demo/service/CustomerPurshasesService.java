@@ -85,15 +85,8 @@ public class CustomerPurshasesService {
 		List<CustomerProductDetail> customerProductList = this.findAll();
 		List<CustomerProductDetail> customerProductFilter = new ArrayList<CustomerProductDetail>();
 
-		Comparator<CustomerProductDetail> byBiggestPurshaseComparatorCustomer = (CustomerProductDetail p1,
-				CustomerProductDetail p2) -> p2.getProductDetail().get(0).getPrice()
-						.compareTo(p1.getProductDetail().get(0).getPrice());
-
 		// Filter by year
 		customerProductFilter = this.filterByYear(customerProductList, year);
-
-		// Order master list
-		customerProductFilter.sort(byBiggestPurshaseComparatorCustomer);
 
 		return customerProductFilter.get(0);
 
